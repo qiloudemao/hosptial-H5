@@ -17,4 +17,5 @@ export type userType = {
     planetCode: string;
     tags: string[];
     createTime: Date;
+    dName: string;
 }

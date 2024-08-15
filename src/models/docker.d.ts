@@ -4,17 +4,11 @@
  */
 
 export type dockerType = {
-    id: number;
-    username: string;
-    userAccount: string;
+    dId:bigint;
+    dName:string;
+    dGender:string;
+    dPost:string;
+    dInstroduction:string;
+    dSection:string;
     avatarUrl?: string;
-    profile?: string;
-    gender: string;
-    phone: string;
-    email: string;
-    userStatus: number;
-    userRole: number;
-    planetCode: string;
-    tags: string[];
-    createTime: Date;
 }

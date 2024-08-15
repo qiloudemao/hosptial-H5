@@ -1,27 +1,29 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import myAXios from "../plugins/myAXios.ts";
+import myAXios, {setToken} from "../plugins/myAXios.ts";
 import {Toast} from "vant";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
+import {setPatientId} from "../plugins/patient.ts";
 
 const router = useRouter();
-const route = useRoute();
 
 const userAccount = ref('');
 const userPassword = ref('');
 const onSubmit = async () => {
-  const res = await myAXios.post('user/login', {
-    userAccount: userAccount.value,
-    userPassword: userPassword.value,
-  })
+  var params = new URLSearchParams();
+  params.append("pId", userAccount.value);
+  params.append("pPassword", userPassword.value);
+  const res = await myAXios.post('user/login', params);
   console.log(res, '用户登录');
-  if (res.code === 200 && res.data) {
+  if (res.status===200&&res.data.status === 200 && res.data.data) {
     Toast.success('登录成功');
-    //跳转到之前的页面
-
-    const redirectUrl = route.query?.redirect as string?? '/';
-    window.location.href = redirectUrl;
-    // router.replace('/user');
+    setToken(res.data.data.token);
+    setPatientId(res.data.data.pId);
+  //   //跳转到之前的页面
+  //   const redirectUrl = route.query?.redirect as string?? '/';
+  //   window.location.href = redirectUrl;
+   await router.replace('/user');
+    // setToken(res.data.data.token);
   } else {
     Toast.fail('登录失败，请重新输入');
   }
