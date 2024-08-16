@@ -43,8 +43,10 @@ onMounted(async () => {
     doctorList.value=doctorListT;
 })
 
-const reserve=(doctor)=>{
-  myAXios.get('/user/addOrder',{
+// Date date=new Date();
+// data
+const reserveM=(doctor)=>{
+  myAXios.get('/user/addOrderM',{
     params:{
       pId:getPatienId(),
       dId:doctor.dId,
@@ -52,7 +54,17 @@ const reserve=(doctor)=>{
       arId:"2019852024-08-16"
     }
   })
-      .then()
+}
+
+const reserveA=(doctor)=>{
+  myAXios.get('/user/addOrderA',{
+    params:{
+      pId:getPatienId(),
+      dId:doctor.dId,
+      oStart:"2024-08-16 15:30-16:30     余号 40",
+      arId:"2019852024-08-16"
+    }
+  })
 }
 // doctorList.forEach(doctor => {
 //   console.info(doctor);
@@ -68,8 +80,8 @@ const reserve=(doctor)=>{
       thumb="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
   >
     <template #footer>
-      <van-button size="mini" @click="reserve(doctor)">上午预约挂号</van-button>
-      <van-button size="mini" @click="reserve(doctor)">下午预约挂号</van-button>
+      <van-button size="mini" @click="reserveM(doctor)">上午预约挂号</van-button>
+      <van-button size="mini" @click="reserveA(doctor)">下午预约挂号</van-button>
     </template>
   </van-card>
 

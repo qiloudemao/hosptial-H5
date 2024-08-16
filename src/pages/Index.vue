@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import {useRouter} from "vue-router";
-import {PickerInstance, Toast} from "vant";
-import myAXios from "../plugins/myAXios.ts";
+import {PickerInstance} from "vant";
 
 const picker = ref<PickerInstance>();
 const route = useRouter();

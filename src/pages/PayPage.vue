@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import myAXios from "../plugins/myAXios.ts";
 import {getPatienId} from "../plugins/patient.ts";
+import {Toast} from "vant";
 
 const active = ref(3);
 
@@ -24,7 +25,15 @@ onMounted(async () =>{
 })
 
 const submit=async ()=>{
-
+      const res=await myAXios.get('user/pay',{
+        params:{
+          pId:getPatienId()
+        }
+      })
+      if(res.status === 200){
+        Toast.success("缴费成功")
+      }
+      else Toast.fail("缴费失败")
 }
 
 </script>
