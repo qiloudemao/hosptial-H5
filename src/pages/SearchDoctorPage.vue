@@ -5,6 +5,7 @@ import myAXios from "../plugins/myAXios.ts";
 import {Toast} from "vant";
 import {dockerType} from "../models/docker";
 import qs from "qs";
+import {getPatienId} from "../plugins/patient.ts";
 
 const route = useRoute();
 const {sectionList} = route.query;
@@ -42,6 +43,17 @@ onMounted(async () => {
     doctorList.value=doctorListT;
 })
 
+const reserve=(doctor)=>{
+  myAXios.get('/user/addOrder',{
+    params:{
+      pId:getPatienId(),
+      dId:doctor.dId,
+      oStart:"2024-08-16 15:30-16:30     余号 40",
+      arId:"2019852024-08-16"
+    }
+  })
+      .then()
+}
 // doctorList.forEach(doctor => {
 //   console.info(doctor);
 // })
@@ -51,12 +63,13 @@ onMounted(async () => {
 <template>
   <van-card
       v-for="doctor in doctorList"
-      :desc="doctor.dInstroduction"
       :title="`${doctor.dName}（${doctor.dGender}）`"
-      :thumb="doctor.avatarUrl"
+      :desc="`（${doctor.dPost}）${doctor.dIntroduction}`"
+      thumb="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg"
   >
     <template #footer>
-      <van-button size="mini">挂号</van-button>
+      <van-button size="mini" @click="reserve(doctor)">上午预约挂号</van-button>
+      <van-button size="mini" @click="reserve(doctor)">下午预约挂号</van-button>
     </template>
   </van-card>
 

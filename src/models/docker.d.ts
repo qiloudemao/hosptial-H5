@@ -8,7 +8,7 @@ export type dockerType = {
     dName:string;
     dGender:string;
     dPost:string;
-    dInstroduction:string;
+    dIntroduction:string;
     dSection:string;
     avatarUrl?: string;
 }
